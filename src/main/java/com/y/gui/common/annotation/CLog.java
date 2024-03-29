@@ -1,6 +1,7 @@
-package com.y.gui.annotation;
+package com.y.gui.common.annotation;
 
-import com.y.gui.annotation.enums.LogLevelEnum;
+
+import com.y.gui.common.annotation.enums.LogLevelEnum;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

@@ -1,4 +1,4 @@
-package com.y.gui.utils;
+package com.y.gui.common.utils;
 
 import org.springframework.util.StringUtils;
 

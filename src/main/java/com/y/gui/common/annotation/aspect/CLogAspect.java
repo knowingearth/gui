@@ -1,8 +1,8 @@
-package com.y.gui.annotation.aspect;
+package com.y.gui.common.annotation.aspect;
 
 import com.alibaba.fastjson.JSON;
-import com.y.gui.annotation.CLog;
-import com.y.gui.utils.IPUtils;
+import com.y.gui.common.annotation.CLog;
+import com.y.gui.common.utils.IPUtils;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -136,9 +136,6 @@ public class CLogAspect {
             case DEBUG:
                 log.debug("CLogAspect: {}", cLogBean);
                 break;
-            case INFO:
-                log.info("CLogAspect: {}", cLogBean);
-                break;
             case WARN:
                 log.warn("CLogAspect: {}", cLogBean);
                 break;
@@ -202,22 +199,22 @@ public class CLogAspect {
 
         @Override
         public String toString() {
-            StringBuilder logBuilder = new StringBuilder("position:" + className + "#" + methodName + ", executeTime:" + executeTime + " milliseconds");
-            if (logParam && null != paramMap) {
-                logBuilder.append(", param:" + JSON.toJSONString(paramMap));
+            StringBuilder logBuilder = new StringBuilder("position:" + this.className + "#" + this.methodName + ", executeTime:" + this.executeTime + " milliseconds");
+            if (this.logParam && null != this.paramMap) {
+                logBuilder.append(", param:" + JSON.toJSONString(this.paramMap));
             }
-            if (logResult && null != result) {
-                logBuilder.append(", result:" + JSON.toJSONString(result));
+            if (this.logResult && null != this.result) {
+                logBuilder.append(", result:" + JSON.toJSONString(this.result));
             }
-            logBuilder.append(", returnType:" + resultType);
-            if (!StringUtils.isEmpty(requestURL)) {
-                logBuilder.append(", url:"+ requestURL);
+            logBuilder.append(", returnType:" + this.resultType);
+            if (!StringUtils.isEmpty(this.requestURL)) {
+                logBuilder.append(", url:"+ this.requestURL);
             }
-            if (!StringUtils.isEmpty(ip)) {
-                logBuilder.append(", ip:"+ ip);
+            if (!StringUtils.isEmpty(this.ip)) {
+                logBuilder.append(", ip:"+ this.ip);
             }
-            if (!StringUtils.isEmpty(exceptionMsg)) {
-                logBuilder.append(", e:" + exceptionMsg);
+            if (!StringUtils.isEmpty(this.exceptionMsg)) {
+                logBuilder.append(", e:" + this.exceptionMsg);
             }
             return logBuilder.toString();
         }
