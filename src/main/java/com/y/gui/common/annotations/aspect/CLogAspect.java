@@ -1,7 +1,7 @@
-package com.y.gui.common.annotation.aspect;
+package com.y.gui.common.annotations.aspect;
 
 import com.alibaba.fastjson.JSON;
-import com.y.gui.common.annotation.CLog;
+import com.y.gui.common.annotations.CLog;
 import com.y.gui.common.utils.IPUtils;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,7 +30,7 @@ import java.util.Map;
 @Aspect
 @Component
 public class CLogAspect {
-    @Pointcut(value = "@annotation(com.y.gui.annotation.CLog)")
+    @Pointcut(value = "@annotation(com.y.gui.common.annotations.CLog)")
     public void cLogPointCut() {
     }
 

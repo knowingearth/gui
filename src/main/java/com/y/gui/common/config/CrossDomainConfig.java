@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * 跨域配置
  */
 @Configuration
-public class ProviderMvcConfig implements WebMvcConfigurer {
+public class CrossDomainConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")// 项目中的所有接口都支持跨域

@@ -1,4 +1,4 @@
-package com.y.gui.common.annotation.enums;
+package com.y.gui.common.annotations.enums;
 
 
 import lombok.AllArgsConstructor;
