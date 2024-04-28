@@ -20,7 +20,7 @@ import java.util.List;
 @Slf4j
 @Tag(name = "TestControllerAPI", description = "测试控制器")
 @RestController
-@RequestMapping("/gui")
+@RequestMapping("gui")
 public class TestController {
     @Autowired
     private UserQueryService service;
