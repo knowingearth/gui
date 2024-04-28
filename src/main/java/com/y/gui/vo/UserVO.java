@@ -1,6 +1,7 @@
 package com.y.gui.vo;
 
 import com.y.gui.common.bases.Page;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.util.StringUtils;
@@ -8,6 +9,7 @@ import org.springframework.util.StringUtils;
 @Getter
 @Setter
 public class UserVO extends Page {
+    @Schema(name = "name", title = "用户的", description = "用户名称")
     private String name;
 
     private Integer age;
