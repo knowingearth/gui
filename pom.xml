@@ -58,7 +58,7 @@
 			<artifactId>druid-spring-boot-starter</artifactId>
 			<version>1.1.21</version>
 		</dependency>
-		<!-- druid数据源的监控能力 -->
+		<!-- druid数据源的监控能力 http://localhost:8080/druid/index.html -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>

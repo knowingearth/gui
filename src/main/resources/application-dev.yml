@@ -71,6 +71,36 @@ spring:
         login-username: admin
         login-password: admin
 
+  task:
+    # 默认异步任务线程池配置
+    execution:
+      pool:
+        core-size: 8
+        max-size: 16
+        queue-capacity: 100
+        keep-alive: 60s
+        allow-core-thread-timeout: true
+    # 自定义异步任务线程池配置
+    # 因为在AsyncExecuterConfig中使用以下配置重新配置了async线程池，所以上面的默认异步任务线程池配置将被覆盖
+    # 所以，当在程序中使用注解@Async并且注解中不指定线程池名称时，最好用这两种方式之一配置线程池参数，不然默认的异步线程池参数为Integer.MAX_VALUE
+    async-execution:
+      pool:
+        coreSize: 2
+        maxPoolSize: 16
+        queueCapacity: 100
+        keepAliveSeconds: 60
+        allowCoreThreadTimeOut: true
+        threadNamePrefix: async-pool-
+    # 自定义任务线程池配置
+    data-execution:
+      pool:
+        coreSize: 2
+        maxPoolSize: 16
+        queueCapacity: 100
+        keepAliveSeconds: 60
+        allowCoreThreadTimeOut: true
+        threadNamePrefix: data-pool-
+
 mybatis:
   mapper-locations: classpath:/mapper/*.xml
   # type-aliases-package: com.y.gui.dao

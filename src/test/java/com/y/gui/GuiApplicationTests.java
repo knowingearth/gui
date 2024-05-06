@@ -3,6 +3,7 @@ package com.y.gui;
 import com.alibaba.fastjson.JSON;
 import com.y.gui.dao.GuiAreaMapper;
 import com.y.gui.po.GuiArea;
+import com.y.gui.service.AsyncService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
@@ -14,6 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 @RunWith(SpringRunner.class)
@@ -23,6 +25,7 @@ public class GuiApplicationTests {
 
 	@Autowired
 	private GuiAreaMapper guiAreaMapper;
+
 	@Test
 	@Rollback
 	public void testArea() {
@@ -39,8 +42,25 @@ public class GuiApplicationTests {
 		Assert.assertEquals("北京", area.getName());
 	}
 
+	@Autowired
+	private AsyncService asyncService;
 	@Test
-    public void contextLoads() {
+    public void testAsync() throws Exception {
+		/*CompletableFuture<Long> one = asyncService.taskOne();
+		CompletableFuture<String> two = asyncService.taskTwo();
+		CompletableFuture<String> three = asyncService.taskThree();
+		CompletableFuture.allOf(one, two, three).join();
+		log.info("GuiApplicationTests.testAsync, one:{}", one.get());
+		log.info("GuiApplicationTests.testAsync, one:{}", two.get());
+		log.info("GuiApplicationTests.testAsync, one:{}", three.get());*/
+		log.info("主线程执行开始");
+		CompletableFuture<Long> taskOne = asyncService.taskOne();
+		CompletableFuture<String> two = asyncService.taskTwo();
+		CompletableFuture<String> three = asyncService.taskThree();
+		CompletableFuture<String> three1 = asyncService.taskThree();
+		CompletableFuture<String> three2 = asyncService.taskThree();
+		CompletableFuture<String> three3 = asyncService.taskThree();
+		log.info("主线程执行结束");
 	}
 
 }
