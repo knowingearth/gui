@@ -1,6 +1,8 @@
 package com.y.gui.common.bases;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.y.gui.common.enums.ResultEnum;
+import com.y.gui.view.GuiView;
 import lombok.Data;
 
 @Data
@@ -8,16 +10,19 @@ public class ResultEntity<T> {
     /**
      * 响应code码
      */
+    @JsonView(GuiView.class)
     private Integer code;
 
     /**
      * 响应描述
      */
+    @JsonView(GuiView.class)
     private String message;
 
     /**
      * 响应数据
      */
+    @JsonView(GuiView.class)
     private T data;
 
     private ResultEntity() {

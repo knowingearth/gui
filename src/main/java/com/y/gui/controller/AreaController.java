@@ -1,49 +1,50 @@
 package com.y.gui.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.y.gui.common.bases.Page;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.y.gui.common.bases.ResultEntity;
-import com.y.gui.dao.GuiAreaMapper;
-import com.y.gui.dto.UserDTO;
-import com.y.gui.po.GuiArea;
-import com.y.gui.service.UserQueryService;
-import com.y.gui.vo.UserVO;
-import io.swagger.v3.oas.annotations.Operation;
+import com.y.gui.dto.AreaDTO;
+import com.y.gui.service.AreaService;
+import com.y.gui.view.GuiAreaView;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
+/**
+ * 全国区划
+ */
 @Slf4j
-@Tag(name = "TestControllerAPI", description = "测试控制器")
+@Tag(name = "AreaControllerAPI", description = "全国区划")
 @RestController
-@RequestMapping("gui")
+@RequestMapping("area")
 public class AreaController {
     @Autowired
-    private UserQueryService service;
+    private AreaService areaService;
 
-    @Operation(summary  = "htllo接口")
-    @PostMapping("/hello")
-    public ResultEntity<Page<List<UserDTO>>> test(@RequestBody UserVO user) {
-        Page<List<UserDTO>> page = service.queryUser(user);
-        log.info("TestController.test, page:{}", JSON.toJSONString(page));
-        return ResultEntity.getSuccessInstance(page);
+    /**
+     * 新增
+     * @param areaDTO
+     * @return
+     */
+    @RequestMapping("add")
+    public ResultEntity<Long> addArea(@RequestBody AreaDTO areaDTO) {
+        Long id = areaService.addArea(areaDTO);
+        return ResultEntity.getSuccessInstance(id);
     }
 
-    @Autowired
-    private GuiAreaMapper mapper;
-    @PostMapping("t")
-    public ResultEntity<String> t(@RequestBody GuiArea a) {
-        a.setCreateTime(LocalDateTime.now());
-        mapper.insertSelective(a);
-        GuiArea guiArea = mapper.selectByPrimaryKey(1L);
-        log.info("TestController.t, guiArea:{}", JSON.toJSONString(guiArea));
-        return ResultEntity.getSuccessInstance(JSON.toJSONString(guiArea));
+
+    @JsonView(GuiAreaView.Full.class)
+    @RequestMapping("getArea/{areaId}")
+    public ResultEntity<AreaDTO> getArea(@PathVariable("areaId") Long areaId) {
+        return ResultEntity.getSuccessInstance(areaService.getAreaById(areaId));
+    }
+
+    @JsonView(GuiAreaView.Simple.class)
+    @RequestMapping("getAreaName/{areaId}")
+    public ResultEntity<AreaDTO> getAreaName(@PathVariable("areaId") Long areaId) {
+        return ResultEntity.getSuccessInstance(areaService.getAreaById(areaId));
     }
 }
