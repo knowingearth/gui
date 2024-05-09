@@ -53,10 +53,11 @@
 		</dependency>
 
 		<!-- druid数据源 -->
+		<!-- https://github.com/alibaba/druid/wiki -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid-spring-boot-starter</artifactId>
-			<version>1.1.21</version>
+			<version>1.2.22</version>
 		</dependency>
 		<!-- druid数据源的监控能力 http://localhost:8080/druid/index.html -->
 		<dependency>
@@ -129,8 +130,8 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- tinylog配置 -->
-		<!-- tinylog官方测试性能：https://tinylog.org/v2/benchmark/ -->
+		<!-- tinylog配置：https://tinylog.org/v2/configuration/ -->
+		<!-- tinylog官方性能测试结果：https://tinylog.org/v2/benchmark/ -->
 		<dependency>
 			<groupId>org.tinylog</groupId>
 			<artifactId>tinylog-api</artifactId>
