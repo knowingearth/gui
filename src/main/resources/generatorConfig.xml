@@ -5,15 +5,14 @@
 <generatorConfiguration>
 
     <context id="test" targetRuntime="MyBatis3">
-        <!--<plugin type="com.y.gui.common.plugins.MyBatisPlugin">
-            <property name="hasLombok" value="true"/>
-        </plugin>-->
-        <!--<plugin type="com.y.gui.common.plugins.MyBatisLombokPlugin">
-            <property name="builder" value="true"/>
-        </plugin>-->
         <!--<plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"></plugin>
         <plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
         <plugin type="org.mybatis.generator.plugins.ToStringPlugin"></plugin>-->
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin" />
+        <!-- 去掉构造函数 -->
+        <!--<property name="suppressConstructor" value="false"/>-->
+        <!-- 生成的类加上lombok注解 -->
+        <!--<plugin type="com.y.gui.common.plugins.LombokPlugin"/>-->
         <!-- 防止生成的mapper.xml中内容重复 -->
         <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"/>
         <commentGenerator>
