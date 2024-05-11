@@ -8,4 +8,8 @@ public interface AsyncService {
     CompletableFuture<String> taskTwo();
 
     CompletableFuture<String> taskThree();
+
+    String ta(String p);
+
+    Long tb();
 }

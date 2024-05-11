@@ -9,6 +9,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
 
 @Slf4j
 @RunWith(SpringRunner.class)
@@ -44,6 +46,9 @@ public class GuiApplicationTests {
 
 	@Autowired
 	private AsyncService asyncService;
+	@Qualifier("asyncExecutor")
+	@Autowired
+	private Executor executor1;
 	@Test
     public void testAsync() throws Exception {
 		/*CompletableFuture<Long> one = asyncService.taskOne();
@@ -60,6 +65,17 @@ public class GuiApplicationTests {
 		CompletableFuture<String> three1 = asyncService.taskThree();
 		CompletableFuture<String> three2 = asyncService.taskThree();
 		CompletableFuture<String> three3 = asyncService.taskThree();
+		CompletableFuture.allOf(taskOne, two, three, three1, three2, three3).join();
+
+
+		CompletableFuture[] cfs = {
+				CompletableFuture.supplyAsync(() -> asyncService.ta("参数"), executor1),
+				CompletableFuture.supplyAsync(() -> asyncService.tb())
+		};
+		CompletableFuture.allOf(cfs).join();
+		System.out.println(cfs[0].get());
+		System.out.println(cfs[1].get());
+
 		log.info("主线程执行结束");
 	}
 
