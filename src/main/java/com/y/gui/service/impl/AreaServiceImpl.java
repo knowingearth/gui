@@ -47,6 +47,9 @@ public class AreaServiceImpl implements AreaService {
     @Override
     public AreaDTO getAreaById(Long areaId) {
         GuiArea area = areaMapper.selectByPrimaryKey(areaId);
+        if (null == area) {
+            return null;
+        }
         AreaDTO areaDTO = new AreaDTO();
         BeanUtils.copyProperties(area, areaDTO);
         return areaDTO;

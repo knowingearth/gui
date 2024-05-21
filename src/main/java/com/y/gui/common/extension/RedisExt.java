@@ -1,4 +1,4 @@
-package com.y.gui.common.utils;
+package com.y.gui.common.extension;
 
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
  * redis命令参考：https://www.redis.net.cn/order/
  */
 @Component
-public class RedisUtil {
+public class RedisExt {
     @Resource
     private RedisTemplate redisTemplate;
 

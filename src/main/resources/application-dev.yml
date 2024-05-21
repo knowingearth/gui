@@ -5,17 +5,24 @@ spring:
   redis:
     host: localhost
     port: 6379
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1ms
+        min-idle: 0
+      shutdown-timeout: 100ms
 
   datasource:
+    # 因为Spring Boot 2.1.x默认使用了MySQL 8.0的驱动，所以这里采用com.mysql.cj.jdbc.Driver，而不是老的com.mysql.jdbc.Driver。
+    # 这一项可配可不配，如果不配置druid会根据url自动识别dbType，然后选择相应的driverClassName。
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+    url: jdbc:mysql://localhost:3306/gui_guang?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    username: root
+    password: 123456
+
     druid:
-      # 因为Spring Boot 2.1.x默认使用了MySQL 8.0的驱动，所以这里采用com.mysql.cj.jdbc.Driver，而不是老的com.mysql.jdbc.Driver。
-      # 这一项可配可不配，如果不配置druid会根据url自动识别dbType，然后选择相应的driverClassName。
-      driver-class-name: com.mysql.cj.jdbc.Driver
-
-      url: jdbc:mysql://localhost:3306/gui_guang?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
-      username: root
-      password: 123456
-
       # druid 链接池配置
 
       # 初始化时建立物理连接的个数。初始化发生在显示调用init方法，或者第一次getConnection时。
@@ -71,6 +78,7 @@ spring:
         login-username: admin
         login-password: admin
 
+
   task:
     # 默认异步任务线程池配置
     execution:
@@ -100,6 +108,19 @@ spring:
         keepAliveSeconds: 60
         allowCoreThreadTimeOut: true
         threadNamePrefix: data-pool-
+
+  # 发送邮件
+  mail:
+    host: smtp.qq.com
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+    username: 292667783@qq.com
+    password: vgpvrqhgsahqbijf
 
 mybatis:
   mapper-locations: classpath:/mapper/*.xml

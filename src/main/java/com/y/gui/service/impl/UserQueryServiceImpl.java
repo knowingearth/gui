@@ -2,8 +2,8 @@ package com.y.gui.service.impl;
 
 import com.y.gui.common.annotations.CLog;
 import com.y.gui.common.bases.Page;
+import com.y.gui.common.extension.RedisExt;
 import com.y.gui.common.repository.UserRespository;
-import com.y.gui.common.utils.RedisUtil;
 import com.y.gui.dto.UserDTO;
 import com.y.gui.service.UserQueryService;
 import com.y.gui.vo.UserVO;
@@ -19,7 +19,7 @@ public class UserQueryServiceImpl implements UserQueryService {
     private Long expireTime = 60L * 60L;
 
     @Autowired
-    public RedisUtil cache;
+    public RedisExt cache;
 
     /**
      * 分页查询用户
