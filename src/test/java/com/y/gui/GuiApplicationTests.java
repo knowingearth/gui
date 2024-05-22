@@ -7,7 +7,6 @@ import com.y.gui.dao.GuiAreaMapper;
 import com.y.gui.po.GuiArea;
 import com.y.gui.service.AsyncService;
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.util.Lists;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -89,9 +88,9 @@ public class GuiApplicationTests {
 	@Test
 	public void sendMail() throws Exception {
 		MailExtParam param = new MailExtParam();
-		param.setRecipient("151@163.com");// 收件人
-		param.setCc(Lists.newArrayList("152@163.com"));// 抄送
-		param.setBcc(Lists.newArrayList("153@163.com"));// 密送
+		param.setRecipient("15110267980@163.com");// 收件人
+		//param.setCc(Lists.newArrayList("152@163.com"));// 抄送
+		//param.setBcc(Lists.newArrayList("153@163.com"));// 密送
 		param.setSubject("鬼逛");// 主题
 		param.setText("邮件时间：" + LocalDateTime.now());// 邮件内容
 		mailExt.sendMail(param);
