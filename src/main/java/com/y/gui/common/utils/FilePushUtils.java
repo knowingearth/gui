@@ -49,7 +49,7 @@ public class FilePushUtils implements ApplicationRunner {
         exec();
     }
 
-    private void exec() {
+    private void exec() throws Exception {
         List<DataTypeEnum> types = DataTypeEnum.getAllEnums();
         while (!types.isEmpty()) {
             for (int i = 0; i < types.size(); i++) {
@@ -79,6 +79,7 @@ public class FilePushUtils implements ApplicationRunner {
                 // 4.当所有类型的数据处理完后，整个while就结束了
                 types.remove(i--);
             }
+            Thread.sleep(1000 * 60 * 3);// 休眠3分钟
         }
     }
 
