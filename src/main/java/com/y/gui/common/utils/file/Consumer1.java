@@ -28,7 +28,14 @@ public class Consumer1 {
         }
 
         // 判断是否该分页了
-        Long total = Long.valueOf(redisExt.get(totalKey));
+        Long total = redisExt.incr(totalKey);
+        if (0 == total % pageSize) {
+            createPageFile(data);
+            return;
+        }
+
+        // 追加文件内容
+        writeFile(redisExt.get(fileNameKey), data);
     }
 
     /**
@@ -59,12 +66,31 @@ public class Consumer1 {
         getLock();
 
         // 2.创建文件
-        String fileName = type + "";
+        String fileName = type + "_" + redisExt.get(totalKey);
         String data = "{\"dataType\":" + type + ", \"datas\":[";
         writeFile(fileName, data);
 
         // 3.当前写的文件名放入缓存
         redisExt.set(fileNameKey, fileName);
+
+        // 4.释放锁
+        releaseLock();
+    }
+
+    public void createPageFile(String data) {
+        // 1.获取分布式锁
+        getLock();
+
+        // 2.旧文件结束
+        String oldFileName = redisExt.get(fileNameKey);
+        data += "], \"total\":10000}";
+        writeFile(oldFileName, data);
+
+        // 3.新文件开始
+        String newFileName = type + "_" + redisExt.get(totalKey);
+        String newData = "{\"dataType\":" + type + ", \"datas\":[";
+        redisExt.set(fileNameKey, newFileName);
+        writeFile(newFileName, newData);
 
         // 4.释放锁
         releaseLock();
