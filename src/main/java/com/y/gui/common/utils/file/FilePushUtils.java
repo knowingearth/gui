@@ -1,8 +1,6 @@
-package com.y.gui.common.utils;
+package com.y.gui.common.utils.file;
 
 import com.y.gui.common.extension.RedisExt;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -14,29 +12,10 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Component
 public class FilePushUtils implements ApplicationRunner {
-    private static final Long SLEEP = Long.valueOf(1000 * 60 * 3);
 
-    /**
-     * 某种类型的数据总条数
-     */
-    private static final String DATA_TOTAL = "DATA_TOTAL_";
-    /**
-     * 某种类型的数据是否推送完成
-     */
-    private static final String FINISHED_KEY = "FINISHED_";
-    /**
-     * 某种类型的数据最后一次写入的文件名
-     */
-    private static final String FILE_NAME_KEY = "FILE_NAME_";
-    /**
-     * 某种类型的数据全部文件名
-     */
-    private static final String FILE_NAMES_KEY = "FILE_NAMES_";
 
     @Resource
     private RedisExt redisExt;
@@ -59,7 +38,7 @@ public class FilePushUtils implements ApplicationRunner {
                 Integer type = e.getType();
 
                 // 1.判断数据总条数
-                String totalKey = DATA_TOTAL + type;
+                String totalKey = Content.DATA_TOTAL_KEY + type;
                 if (!redisExt.hasKey(totalKey)) {
                     continue;
                 }
@@ -69,7 +48,7 @@ public class FilePushUtils implements ApplicationRunner {
                 }
 
                 // 2.判断数据是否推送完成
-                String finishKey = FINISHED_KEY + type;
+                String finishKey = Content.FINISHED_KEY + type;
                 if (redisExt.hasKey(finishKey)) {
                     // 生产者数据未生产完成
                     continue;
@@ -81,17 +60,17 @@ public class FilePushUtils implements ApplicationRunner {
                 // 4.当所有类型的数据处理完后，整个while就结束了
                 types.remove(i--);
             }
-            Thread.sleep(SLEEP);// 休眠3分钟，避免CPU飙到70%
+            Thread.sleep(Content.SLEEP);// 休眠3分钟，避免CPU飙到70%
         }
     }
 
     private void pushFile(Integer type) {
         // 1.最后一次写入的文件名
-        String fileNameKey = FILE_NAME_KEY + type;
+        String fileNameKey = Content.FILE_NAME_KEY + type;
         String fileName = String.valueOf(redisExt.get(fileNameKey));
 
         // 2.为最后一个json文件追加结尾
-        String totalKey = DATA_TOTAL + type;
+        String totalKey = Content.DATA_TOTAL_KEY + type;
         String data = "\"total\":" + Long.valueOf(redisExt.get(totalKey)) % 10000 + "}";
         PrintWriter pw = null;
         try {
@@ -106,35 +85,9 @@ public class FilePushUtils implements ApplicationRunner {
         }
 
         // 3.将所有某类型的json文件推送远程
-        String fileNamesKey = FILE_NAMES_KEY + type;
+        String fileNamesKey = Content.FILE_NAMES_KEY + type;
         List<Object> fileNames = redisExt.lGet(fileNamesKey, 0, redisExt.lGetListSize(fileNamesKey));
         // todo 推送远程
-    }
-
-
-
-    /**
-     * 20种数据类型 枚举
-     */
-    @Getter
-    @AllArgsConstructor
-    enum DataTypeEnum {
-        BJ(1, "北京地区数据"),
-        TJ(2, "天津地区数据"),
-        HB(3, "河北地区数据");
-        private Integer type;
-        private String desc;
-
-        public static String getDescByType(Integer type) {
-            if (null == type) {
-                return null;
-            }
-            return Stream.of(values()).filter(e -> e.getType().equals(type)).findFirst().map(DataTypeEnum::getDesc).orElse(null);
-        }
-
-        public static List<DataTypeEnum> getAllEnums() {
-            return Stream.of(values()).collect(Collectors.toList());
-        }
     }
 
     /**
