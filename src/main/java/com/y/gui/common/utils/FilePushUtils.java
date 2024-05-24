@@ -19,6 +19,8 @@ import java.util.stream.Stream;
 
 @Component
 public class FilePushUtils implements ApplicationRunner {
+    private static final Long SLEEP = Long.valueOf(1000 * 60 * 3);
+
     /**
      * 某种类型的数据总条数
      */
@@ -79,7 +81,7 @@ public class FilePushUtils implements ApplicationRunner {
                 // 4.当所有类型的数据处理完后，整个while就结束了
                 types.remove(i--);
             }
-            Thread.sleep(1000 * 60 * 3);// 休眠3分钟
+            Thread.sleep(SLEEP);// 休眠3分钟，避免CPU飙到70%
         }
     }
 
