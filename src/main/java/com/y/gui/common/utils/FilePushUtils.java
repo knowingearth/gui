@@ -69,7 +69,7 @@ public class FilePushUtils implements ApplicationRunner {
                 // 2.判断数据是否推送完成
                 String finishKey = FINISHED_KEY + type;
                 if (redisExt.hasKey(finishKey)) {
-                    // 数据未推送完成
+                    // 生产者数据未生产完成
                     continue;
                 }
 
