@@ -2,6 +2,7 @@ package com.y.gui.common.utils.file;
 
 import com.y.gui.common.extension.RedisExt;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.io.FileOutputStream;
@@ -22,6 +23,11 @@ public class Consumer1 {
     private String fileNameKey = Content.FILE_NAME_KEY + type;
 
     public void onMessage(String data) {
+        if (!StringUtils.hasText(data)) {
+            return;
+        }
+        data += ",";
+
         // 消费第1条数据，需要新建文件
         if (!redisExt.hasKey(totalKey)) {
             createFile();
@@ -83,6 +89,9 @@ public class Consumer1 {
 
         // 2.旧文件结束
         String oldFileName = redisExt.get(fileNameKey);
+        if (data.endsWith(",")) {
+            data = data.substring(0, data.length() - 1);
+        }
         data += "], \"total\":10000}";
         writeFile(oldFileName, data);
 
