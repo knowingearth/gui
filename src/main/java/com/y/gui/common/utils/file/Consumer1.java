@@ -26,22 +26,24 @@ public class Consumer1 {
         if (!StringUtils.hasText(data)) {
             return;
         }
-        data += ",";
 
         // 消费第1条数据，需要新建文件
         if (!redisExt.hasKey(totalKey)) {
-            createFile();
+            createFile(data);
+            return;
         }
 
         // 判断是否该分页了
-        Long total = redisExt.incr(totalKey);
+        Long total = redisExt.get(totalKey);
         if (0 == total % pageSize) {
             createPageFile(data);
             return;
         }
 
         // 追加文件内容
+        data = "," + data;
         writeFile(redisExt.get(fileNameKey), data);
+        redisExt.incr(totalKey);
     }
 
     /**
@@ -53,7 +55,7 @@ public class Consumer1 {
             throw new RuntimeException("未获取到锁");
         }
 
-        boolean lock = redisExt.setNx(lockKey, 0, 1L);// 锁1秒过期
+        boolean lock = redisExt.setNx(lockKey, 0, 3L);// 锁1秒过期
         if (!lock) {
             throw new RuntimeException("未获取到锁");
         }
@@ -67,17 +69,18 @@ public class Consumer1 {
         redisExt.del(lockKey);
     }
 
-    public void createFile() {
+    public void createFile(String data) {
         // 1.获取分布式锁
         getLock();
 
         // 2.创建文件
         String fileName = type + "_" + redisExt.get(totalKey);
-        String data = "{\"dataType\":" + type + ", \"datas\":[";
+        data = "{\"dataType\":" + type + ", \"datas\":[" + data;
         writeFile(fileName, data);
 
         // 3.当前写的文件名放入缓存
         redisExt.set(fileNameKey, fileName);
+        redisExt.incr(totalKey);
 
         // 4.释放锁
         releaseLock();
@@ -89,17 +92,15 @@ public class Consumer1 {
 
         // 2.旧文件结束
         String oldFileName = redisExt.get(fileNameKey);
-        if (data.endsWith(",")) {
-            data = data.substring(0, data.length() - 1);
-        }
-        data += "], \"total\":10000}";
-        writeFile(oldFileName, data);
+        String end = "], \"total\":10000}";
+        writeFile(oldFileName, end);
 
         // 3.新文件开始
         String newFileName = type + "_" + redisExt.get(totalKey);
-        String newData = "{\"dataType\":" + type + ", \"datas\":[";
+        data = "{\"dataType\":" + type + ", \"datas\":[" + data;
         redisExt.set(fileNameKey, newFileName);
-        writeFile(newFileName, newData);
+        writeFile(newFileName, data);
+        redisExt.incr(totalKey);
 
         // 4.释放锁
         releaseLock();

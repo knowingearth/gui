@@ -71,7 +71,7 @@ public class FilePushUtils implements ApplicationRunner {
 
         // 2.为最后一个json文件追加结尾
         String totalKey = Content.DATA_TOTAL_KEY + type;
-        String data = "\"total\":" + Long.valueOf(redisExt.get(totalKey)) % 10000 + "}";
+        String data = "],\"total\":" + Long.valueOf(redisExt.get(totalKey)) % 10000 + "}";
         PrintWriter pw = null;
         try {
             pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(fileName,true)), true);
