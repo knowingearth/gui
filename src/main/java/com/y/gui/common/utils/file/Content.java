@@ -29,4 +29,6 @@ public class Content {
     public static final String FILE_NAMES_KEY = "FILE_NAMES_";
 
     public static final String LOCK_KEY = "LOCK_";
+
+    public static final Long PAGE_SIZE = 10000L;
 }

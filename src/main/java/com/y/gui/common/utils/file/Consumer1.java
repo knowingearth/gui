@@ -55,7 +55,7 @@ public class Consumer1 {
             throw new RuntimeException("未获取到锁");
         }
 
-        boolean lock = redisExt.setNx(lockKey, 0, 3L);// 锁1秒过期
+        boolean lock = redisExt.setNx(lockKey, 0, 3L);// 锁3秒过期
         if (!lock) {
             throw new RuntimeException("未获取到锁");
         }
@@ -119,9 +119,7 @@ public class Consumer1 {
         } catch (Exception e) {
             throw new RuntimeException(e);
         } finally {
-            if (null != pw) {
-                pw.close();
-            }
+            if (null != pw) pw.close();
         }
     }
 }
