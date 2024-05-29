@@ -67,22 +67,12 @@ public class FilePushUtils implements ApplicationRunner {
     private void pushFile(Integer type) {
         // 1.最后一次写入的文件名
         String fileNameKey = Content.FILE_NAME_KEY + type;
-        String fileName = String.valueOf(redisExt.get(fileNameKey));
+        String fileName = redisExt.get(fileNameKey);
 
         // 2.为最后一个json文件追加结尾
         String totalKey = Content.DATA_TOTAL_KEY + type;
         String data = "],\"total\":" + Long.valueOf(redisExt.get(totalKey)) % 10000 + "}";
-        PrintWriter pw = null;
-        try {
-            pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(fileName,true)), true);
-            pw.println(data);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        } finally {
-            if (null != pw) {
-                pw.close();
-            }
-        }
+        writeFile(fileName, data);
 
         // 3.将所有某类型的json文件推送远程
         String fileNamesKey = Content.FILE_NAMES_KEY + type;
@@ -119,7 +109,7 @@ public class FilePushUtils implements ApplicationRunner {
         public void run() {
             try {
                 down.await();
-                writeFile(this.data);
+                writeFile("D:\\data.txt", this.data);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -130,20 +120,18 @@ public class FilePushUtils implements ApplicationRunner {
      * 写文件
      * @param data
      */
-    public static void writeFile(String data) {
+    public static void writeFile(String fileName, String data) {
         if (!StringUtils.hasText(data)) {
             return;
         }
         PrintWriter pw = null;
         try {
-            pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream("D:\\data.txt",true)), true);
+            pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(fileName,true)), true);
             pw.println(data);
         } catch (Exception e) {
             throw new RuntimeException(e);
         } finally {
-            if (null != pw) {
-                pw.close();
-            }
+            if (null != pw) pw.close();
         }
     }
 }
