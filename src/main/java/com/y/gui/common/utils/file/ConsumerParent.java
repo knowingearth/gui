@@ -94,14 +94,12 @@ public abstract class ConsumerParent {
      * @param data
      */
     protected void writeFile(Integer type, String data) throws Exception {
-        PrintWriter pw = null;
-        try {
-            String fileNameKey = Content.FILE_NAME_KEY + type;
-            String fileName = redisExt.get(fileNameKey);
-            pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(fileName,true)), true);
+        String fileNameKey = Content.FILE_NAME_KEY + type;
+        String fileName = redisExt.get(fileNameKey);
+        try (PrintWriter pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(fileName,true)), true)) {
             pw.println(data);
-        } finally {
-            if (null != pw) pw.close();
+        } catch (Exception e) {
+            throw e;
         }
     }
 

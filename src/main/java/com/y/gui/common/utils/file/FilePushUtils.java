@@ -92,6 +92,7 @@ public class FilePushUtils implements ApplicationRunner {
             new Thread(new WriteClass(down, data)).start();
             down.countDown();
         }
+        System.out.println("for循环结束");
     }
 
     /**
@@ -124,14 +125,12 @@ public class FilePushUtils implements ApplicationRunner {
         if (!StringUtils.hasText(data)) {
             return;
         }
-        PrintWriter pw = null;
-        try {
-            pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(fileName,true)), true);
+
+        try (PrintWriter pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(fileName,true)), true)) {
+            System.out.println("开始写文件：" + data);
             pw.println(data);
         } catch (Exception e) {
             throw new RuntimeException(e);
-        } finally {
-            if (null != pw) pw.close();
         }
     }
 }
