@@ -137,8 +137,7 @@ public class RedisExt {
      */
     public <T> boolean setNx(String key,T value) {
         try {
-            redisTemplate.opsForValue().setIfAbsent(key, value);
-            return true;
+            return redisTemplate.opsForValue().setIfAbsent(key, value);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -152,14 +151,12 @@ public class RedisExt {
      * @param time 时间(秒) time要大于0 如果time小于等于0 将设置无限期
      * @return true成功 false 失败
      */
-    public <T> boolean setNx(String key,T value,long time){
+    public <T> Boolean setNx(String key,T value,long time){
         try {
-            if(time>0){
-                redisTemplate.opsForValue().setIfAbsent(key, value, time, TimeUnit.SECONDS);
-            }else{
-                set(key, value);
+            if(0 < time){
+                return redisTemplate.opsForValue().setIfAbsent(key, value, time, TimeUnit.SECONDS);
             }
-            return true;
+            return setNx(key, value);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
