@@ -22,14 +22,14 @@ public class LombokPlugin extends PluginAdapter {
 
         // 添加实体类的 import
         topLevelClass.addImportedType("lombok.Data");
-        topLevelClass.addImportedType("lombok.NoArgsConstructor");
-        topLevelClass.addImportedType("lombok.AllArgsConstructor");
+        // topLevelClass.addImportedType("lombok.NoArgsConstructor");
+        // topLevelClass.addImportedType("lombok.AllArgsConstructor");
         topLevelClass.addImportedType("lombok.experimental.Accessors");
         // 添加实体类的 lombok 注解
         topLevelClass.addAnnotation("@Data");
         topLevelClass.addAnnotation("@Accessors(chain = true)");
-        topLevelClass.addAnnotation("@NoArgsConstructor");
-        topLevelClass.addAnnotation("@AllArgsConstructor");
+        // topLevelClass.addAnnotation("@NoArgsConstructor");
+        // topLevelClass.addAnnotation("@AllArgsConstructor");
 
         return true;
     }
