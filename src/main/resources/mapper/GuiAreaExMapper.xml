@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.y.gui.dao.GuiAreaExMapper">
+  <resultMap id="BaseResultMap" type="com.y.gui.po.GuiArea">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="code" jdbcType="BIGINT" property="code" />
+    <result column="parent_code" jdbcType="BIGINT" property="parentCode" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="short_name" jdbcType="VARCHAR" property="shortName" />
+    <result column="longitude" jdbcType="REAL" property="longitude" />
+    <result column="latitude" jdbcType="REAL" property="latitude" />
+    <result column="level" jdbcType="INTEGER" property="level" />
+    <result column="ur_code" jdbcType="INTEGER" property="urCode" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, code, parent_code, name, short_name, longitude, latitude, level, ur_code, sort, 
+    status, create_time, update_time
+  </sql>
+
+  <insert id="insertOrUpdateSelective" keyColumn="id" keyProperty="id" parameterType="com.y.gui.po.GuiArea" useGeneratedKeys="true">
+    insert into gui_area
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="code != null">
+        code,
+      </if>
+      <if test="parentCode != null">
+        parent_code,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="shortName != null">
+        short_name,
+      </if>
+      <if test="longitude != null">
+        longitude,
+      </if>
+      <if test="latitude != null">
+        latitude,
+      </if>
+      <if test="level != null">
+        level,
+      </if>
+      <if test="urCode != null">
+        ur_code,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="code != null">
+        #{code,jdbcType=BIGINT},
+      </if>
+      <if test="parentCode != null">
+        #{parentCode,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="shortName != null">
+        #{shortName,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=REAL},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=REAL},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="urCode != null">
+        #{urCode,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+    on duplicate key update
+    <trim suffixOverrides=",">
+      <if test="record.parentCode != null">
+        parent_code = #{record.parentCode,jdbcType=BIGINT},
+      </if>
+      <if test="record.shortName != null">
+        short_name = #{record.shortName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.longitude != null">
+        longitude = #{record.longitude,jdbcType=REAL},
+      </if>
+      <if test="record.latitude != null">
+        latitude = #{record.latitude,jdbcType=REAL},
+      </if>
+      <if test="record.level != null">
+        level = #{record.level,jdbcType=INTEGER},
+      </if>
+      <if test="record.urCode != null">
+        ur_code = #{record.urCode,jdbcType=INTEGER},
+      </if>
+      <if test="record.sort != null">
+        sort = #{record.sort,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <insert id="batchInsertOrUpdateSelective" keyColumn="id" keyProperty="id" useGeneratedKeys="true" parameterType="com.y.gui.po.GuiArea">
+    insert into gui_area (
+      code, parent_code, name, short_name, longitude, latitude, level, ur_code, sort,
+      status, create_time, update_time
+    ) values
+    <foreach collection="records" item="record" separator=",">
+      (
+      #{record.code,jdbcType=BIGINT}, #{record.parentCode,jdbcType=BIGINT}, #{record.name,jdbcType=VARCHAR},
+      #{record.shortName,jdbcType=VARCHAR}, #{record.longitude,jdbcType=REAL}, #{record.latitude,jdbcType=REAL},
+      #{record.level,jdbcType=INTEGER}, #{record.urCode,jdbcType=INTEGER}, #{record.sort,jdbcType=INTEGER},
+      #{record.status,jdbcType=INTEGER}, #{record.createTime,jdbcType=TIMESTAMP}, #{record.updateTime,jdbcType=TIMESTAMP}
+      )
+    </foreach>
+    on duplicate key update
+    code = values(code),
+    parent_code = values(parent_code),
+    name = values(name),
+    short_name = values(short_name),
+    longitude = values(longitude),
+    latitude = values(latitude),
+    level = values(level),
+    ur_code = values(ur_code),
+    sort = values(sort),
+    status = values(status),
+    create_time = values(create_time),
+    update_time = values(update_time)
+  </insert>
+</mapper>

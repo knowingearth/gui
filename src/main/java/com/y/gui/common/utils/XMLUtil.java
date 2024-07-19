@@ -1,12 +1,6 @@
 package com.y.gui.common.utils;
 
-import com.alibaba.fastjson.JSON;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.StringUtils;
 
 @Slf4j
 public class XMLUtil {
@@ -19,14 +13,14 @@ public class XMLUtil {
      * @param <T>
      */
     public static <T> T xmlToBean(String xml, Class<T> c) {
-        if (!StringUtils.hasText(xml)) {
+        /*if (!StringUtils.hasText(xml)) {
             return null;
         }
         try {
             return new XmlMapper().readValue(xml, c);
         } catch (JsonProcessingException e) {
             log.info("XMLUtil.xmlToBean, JsonProcessingException, xml:{}, class:{}", xml, c);
-        }
+        }*/
         return null;
     }
 
@@ -39,14 +33,14 @@ public class XMLUtil {
         if (null == obj) {
             return null;
         }
-        try {
+        /*try {
             ObjectMapper xmlMapper = new XmlMapper();
             // 美化输出
             xmlMapper.enable(SerializationFeature.INDENT_OUTPUT);
             return xmlMapper.writeValueAsString(obj);
         } catch (JsonProcessingException e) {
             log.info("XMLUtil.beanToXml, JsonProcessingException, obj:{}", JSON.toJSONString(obj));
-        }
+        }*/
         return null;
     }
 }

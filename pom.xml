@@ -179,7 +179,7 @@
 		</dependency>
 
 		<!-- 加载本地generator-plugin.jar包 -->
-		<dependency>
+		<!--<dependency>
 			<groupId>org.mybatis.generator</groupId>
 			<artifactId>generator-plugin</artifactId>
 			<version>1.0</version>
@@ -199,10 +199,10 @@
 					<artifactId>spring-boot-starter-logging</artifactId>
 				</exclusion>
 			</exclusions>
-		</dependency>
+		</dependency>-->
 
 		<!-- 接口返回支持XML格式 -->
-		<dependency>
+		<!--<dependency>
 			<groupId>com.fasterxml.jackson.dataformat</groupId>
 			<artifactId>jackson-dataformat-xml</artifactId>
 			<version>2.13.4</version>
@@ -212,7 +212,7 @@
 					<artifactId>spring-boot-starter-logging</artifactId>
 				</exclusion>
 			</exclusions>
-		</dependency>
+		</dependency>-->
 	</dependencies>
 
 	<repositories>
@@ -259,13 +259,13 @@
 						<artifactId>mybatis-generator-lombok-plugin</artifactId>
 						<version>1.0</version>
 					</dependency>
-					<dependency>
+					<!--<dependency>
 						<groupId>org.mybatis.generator</groupId>
 						<artifactId>generator-plugin</artifactId>
 						<version>1.0</version>
 						<scope>system</scope>
 						<systemPath>${basedir}/src/main/resources/lib/generator-plugin.jar</systemPath>
-					</dependency>
+					</dependency>-->
 				</dependencies>
 			</plugin>
 

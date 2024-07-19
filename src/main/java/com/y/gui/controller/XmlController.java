@@ -34,7 +34,7 @@ public class XmlController {
      * @return
      */
     @PostMapping(value = "strParam", produces = MediaType.APPLICATION_XML_VALUE)
-    public ResultEntity<XmlVO> strParam(@RequestBody String body, HttpServletRequest request, HttpServletResponse response) {
+    public XmlVO strParam(@RequestBody String body, HttpServletRequest request, HttpServletResponse response) {
         // 有时候和外部对接接口，要求返回的XML指定编码格式：<?xml version="1.0" encoding="utf-8"?>
         response.setCharacterEncoding(StandardCharsets.UTF_8.name());
 
@@ -46,9 +46,13 @@ public class XmlController {
 
         // 转换为目标对象
         XmlVO vo = XMLUtil.xmlToBean(body, XmlVO.class);
+        vo = new XmlVO();
+        vo.setUserName("张三");
+        vo.setAddress("北京");
+        vo.setAge(20);
         log.info("XmlController.strParam, vo:{}", JSON.toJSONString(vo));
 
-        return ResultEntity.getSuccessInstance(vo);
+        return vo;
     }
 
     /**
@@ -58,7 +62,7 @@ public class XmlController {
      * @param response
      * @return
      */
-    @PostMapping(value = "strParam", consumes = MediaType.APPLICATION_XML_VALUE, produces = MediaType.APPLICATION_XML_VALUE)
+    @PostMapping(value = "objParam", consumes = MediaType.APPLICATION_XML_VALUE, produces = MediaType.APPLICATION_XML_VALUE)
     public ResultEntity<XmlVO> strParam(@RequestBody XmlParam xmlParam, HttpServletRequest request, HttpServletResponse response) {
         // 有时候和外部对接接口，要求返回的XML指定编码格式：<?xml version="1.0" encoding="utf-8"?>
         response.setCharacterEncoding(StandardCharsets.UTF_8.name());
