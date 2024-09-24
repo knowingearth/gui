@@ -102,35 +102,35 @@
     </trim>
     on duplicate key update
     <trim suffixOverrides=",">
-      <if test="record.parentCode != null">
-        parent_code = #{record.parentCode,jdbcType=BIGINT},
+      <if test="parentCode != null">
+        parent_code = #{parentCode,jdbcType=BIGINT},
       </if>
-      <if test="record.shortName != null">
-        short_name = #{record.shortName,jdbcType=VARCHAR},
+      <if test="shortName != null">
+        short_name = #{shortName,jdbcType=VARCHAR},
       </if>
-      <if test="record.longitude != null">
-        longitude = #{record.longitude,jdbcType=REAL},
+      <if test="longitude != null">
+        longitude = #{longitude,jdbcType=REAL},
       </if>
-      <if test="record.latitude != null">
-        latitude = #{record.latitude,jdbcType=REAL},
+      <if test="latitude != null">
+        latitude = #{latitude,jdbcType=REAL},
       </if>
-      <if test="record.level != null">
-        level = #{record.level,jdbcType=INTEGER},
+      <if test="level != null">
+        level = #{level,jdbcType=INTEGER},
       </if>
-      <if test="record.urCode != null">
-        ur_code = #{record.urCode,jdbcType=INTEGER},
+      <if test="urCode != null">
+        ur_code = #{urCode,jdbcType=INTEGER},
       </if>
-      <if test="record.sort != null">
-        sort = #{record.sort,jdbcType=INTEGER},
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
       </if>
-      <if test="record.status != null">
-        status = #{record.status,jdbcType=INTEGER},
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
       </if>
-      <if test="record.createTime != null">
-        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.updateTime != null">
-        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>

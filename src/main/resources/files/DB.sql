@@ -25,7 +25,7 @@ CREATE TABLE `gui_log` (
    `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
    `level` varchar(10) NOT NULL COMMENT '日志级别',
    `target` varchar(500) NOT NULL COMMENT '日志源',
-   `message` varchar(5000) NOT NULL COMMENT '日志内容',
+   `message` text NOT NULL COMMENT '日志内容',
    `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
    PRIMARY KEY (`id`) USING BTREE,
    KEY `idx_target` (`target`) USING BTREE

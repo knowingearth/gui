@@ -4,7 +4,8 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
 
-    <context id="context1">
+    <!-- defaultModelType="flat" 防止联合主键生成单独的类 -->
+    <context id="context1" defaultModelType="flat">
         <!-- 生成的类加上lombok注解 -->
         <!--<plugin type="com.y.gui.common.plugins.LombokPlugin"/>-->
         <plugin type="com.y.gui.common.plugins.LombokPlugin"/>
