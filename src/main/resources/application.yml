@@ -49,6 +49,7 @@ spring:
     password: ENC(xY9+smiyKtXrfaOQVpiT1x9ccoBj6NIwuqht7eTGlJXmzqtwMJvDgA==)
 
 
+
 # 配置文件加密
 jasypt:
   encryptor:
@@ -56,3 +57,10 @@ jasypt:
     algorithm: PBEWithMD5AndDES
     iv-generator-classname: org.jasypt.iv.RandomIvGenerator
     salt-generator-classname: org.jasypt.salt.RandomSaltGenerator
+
+mybatis:
+  mapper-locations: classpath:/mapper/*.xml
+  # type-aliases-package: com.y.gui.dao
+  # mybatis打印sql
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

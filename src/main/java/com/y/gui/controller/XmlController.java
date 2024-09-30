@@ -28,7 +28,8 @@ public class XmlController {
 
     /**
      * 请求参数xml无法直接转换为obj时，参数可以用字符串接收，然后手动转换
-     * @param body
+     * Content-Type = application/xml
+     * @param body example <xmlVO><userName>张三</userName></xmlVO>
      * @param request
      * @param response
      * @return
@@ -57,7 +58,8 @@ public class XmlController {
 
     /**
      * 请求参数xml可以映射到自己定义的obj时
-     * @param xmlParam
+     * Content-Type = application/xml
+     * @param xmlParam example <xmlVO><userName>张三</userName></xmlVO>
      * @param request
      * @param response
      * @return
@@ -70,6 +72,7 @@ public class XmlController {
         log.info("XmlController.strParam, xmlParam:{}", JSON.toJSONString(xmlParam));
         XmlVO xmlVO = new XmlVO();
         BeanUtils.copyProperties(xmlParam, xmlVO);
+        xmlVO.setAddress("北京市东城区");
         log.info("XmlController.strParam, xmlVO:{}", JSON.toJSONString(xmlVO));
         log.info("XmlController.strParam, xml:{}", XMLUtil.beanToXml(xmlVO));
         return ResultEntity.getSuccessInstance(xmlVO);
