@@ -14,7 +14,7 @@ import java.net.URL;
 public class ImageUtils {
 
     /**
-     * <img alt="图片" src="data:image/png;base64,/9j/4AAQSkZJ..."/>
+     * <img alt="图片" src="data:image/png;base64,iVBORw0KGgoAA..."/>
      * @param imgUrl
      * @return
      * @throws IOException
