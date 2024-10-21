@@ -2,13 +2,16 @@ package com.y.gui.common.utils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.IOUtils;
 import org.springframework.util.StringUtils;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.file.Files;
 
 @Slf4j
 public class ImageUtils {
@@ -46,6 +49,23 @@ public class ImageUtils {
         return base64;
     }
 
+    /**
+     * 获取logo图片
+     * @return 图片信息
+     */
+    public static String getLogoImgBase64() {
+        String base64 = null;
+        try {
+            File file = new File(System.getProperty("user.dir") + "/src/main/resources/pdf/files/logo.png");
+            InputStream inputStream = Files.newInputStream(file.toPath());
+            byte[] bytes = IOUtils.toByteArray(inputStream);
+            base64 = java.util.Base64.getEncoder().encodeToString(bytes);
+        } catch (IOException e) {
+            log.error("ToPDFUtil.getImgBase64, IOException, e:", e);
+        }
+        return base64;
+    }
+
     public static void main(String[] args) {
         System.out.println(urlToBase64("https://tkjohn.github.io/flowable-userguide/images/getting.started.bpmn.process.png"));
 
@@ -53,5 +73,6 @@ public class ImageUtils {
             System.out.println((int)(Math.random()*100000000));
         }
 
+        System.out.println(getLogoImgBase64());
     }
 }

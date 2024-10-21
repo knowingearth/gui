@@ -9,6 +9,7 @@ import com.itextpdf.kernel.events.IEventHandler;
 import com.itextpdf.kernel.events.PdfDocumentEvent;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -71,7 +72,10 @@ public class ToPDFUtil {
         datas.put("bgImg", ImageUtils.urlToBase64(imgUrl));
 
         // 生成pdf文件
-        convertToPdf("test.ftl", datas);
+        byte[] byteArray = convertToPdf("test.ftl", datas);
+
+        // 输出pdf文件
+        FileUtil.writeBytes(byteArray, new File("D:\\pdf\\test.pdf"));
     }
 
     /**
@@ -80,7 +84,7 @@ public class ToPDFUtil {
      * @param datas 填充的数据
      * @return
      */
-    public static void convertToPdf(String templeteName, Map<String, Object> datas) {
+    public static byte[] convertToPdf(String templeteName, Map<String, Object> datas) {
         try {
             Template template = config.getTemplate(templeteName);
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -96,7 +100,8 @@ public class ToPDFUtil {
             // 页脚
             pdf.addEventHandler(PdfDocumentEvent.END_PAGE, new Footer());
             // PDF尺寸
-            pdf.addNewPage(PageSize.A4);
+            PageSize a4 = PageSize.A4;
+            pdf.addNewPage(new PageSize(a4.getWidth(), a4.getHeight() - 20));
 
             // 处理模板并生成内容
             StringWriter htmlWriter = new StringWriter();
@@ -107,7 +112,7 @@ public class ToPDFUtil {
             ConverterProperties converterProperties = new ConverterProperties();
             FontProvider fontProvider = new FontProvider();
 
-            // 默认使用的字段：微软雅黑
+            // 默认使用的字体：微软雅黑
             fontProvider.addFont(PdfFontFactory.createFont("/pdf/font/msyh.ttc,1", "Identity-H").getFontProgram(), "Identity-H");
             // PDF中如果需要显示加粗的字体
             fontProvider.addFont(PdfFontFactory.createFont("/pdf/font/msyhbd.ttc,1", "Identity-H").getFontProgram(), "Identity-H");
@@ -116,10 +121,7 @@ public class ToPDFUtil {
 
             HtmlConverter.convertToPdf(html, pdf, converterProperties);
 
-            byte[] byteArray = outputStream.toByteArray();
-
-            // 输出pdf文件
-            FileUtil.writeBytes(byteArray, new File("D:\\pdf\\test.pdf"));
+            return outputStream.toByteArray();
 
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -227,6 +229,8 @@ public class ToPDFUtil {
         public void handleEvent(Event event) {
             PdfDocumentEvent docEvent = (PdfDocumentEvent) event;
             PdfPage page = docEvent.getPage();
+            Rectangle pageSize = page.getPageSize();
+            page.setMediaBox(new Rectangle(pageSize.getWidth(), pageSize.getHeight() - 20));
             PdfDocument document = docEvent.getDocument();
             int pageNumber = document.getPageNumber(page);
             int totalNumber = document.getPageNumber(document.getLastPage());
