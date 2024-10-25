@@ -51,7 +51,7 @@
             中国企业股份有限公司
         </div>
         <!-- 开启新一页 page-break-before -->
-        <div class = "content" style='page-break-before: right;'>
+        <div class = "content" style='page-break-before: always;'>
             <table>
                 <tr>
                     <th>姓名</th>
