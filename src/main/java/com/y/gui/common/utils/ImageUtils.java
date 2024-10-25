@@ -56,7 +56,7 @@ public class ImageUtils {
     public static String getLogoImgBase64() {
         String base64 = null;
         try {
-            File file = new File(System.getProperty("user.dir") + "/src/main/resources/pdf/files/logo.png");
+            File file = new File(System.getProperty("user.dir") + "/src/main/resources/pdf/files/央广.png");
             InputStream inputStream = Files.newInputStream(file.toPath());
             byte[] bytes = IOUtils.toByteArray(inputStream);
             base64 = java.util.Base64.getEncoder().encodeToString(bytes);

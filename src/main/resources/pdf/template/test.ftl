@@ -50,7 +50,8 @@
             <img src="data:image/png;base64,${img}" alt="LOGO" width="45" height="45" />
             中国企业股份有限公司
         </div>
-        <div class = "content">
+        <!-- 开启新一页 page-break-before -->
+        <div class = "content" style='page-break-before: right;'>
             <table>
                 <tr>
                     <th>姓名</th>

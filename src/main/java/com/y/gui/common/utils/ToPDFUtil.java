@@ -101,7 +101,7 @@ public class ToPDFUtil {
             pdf.addEventHandler(PdfDocumentEvent.END_PAGE, new Footer());
             // PDF尺寸
             PageSize a4 = PageSize.A4;
-            pdf.addNewPage(new PageSize(a4.getWidth(), a4.getHeight() - 20));
+            pdf.setDefaultPageSize(new PageSize(a4.getWidth(), a4.getHeight() - 20));
 
             // 处理模板并生成内容
             StringWriter htmlWriter = new StringWriter();
@@ -116,6 +116,7 @@ public class ToPDFUtil {
             fontProvider.addFont(PdfFontFactory.createFont("/pdf/font/msyh.ttc,1", "Identity-H").getFontProgram(), "Identity-H");
             // PDF中如果需要显示加粗的字体
             fontProvider.addFont(PdfFontFactory.createFont("/pdf/font/msyhbd.ttc,1", "Identity-H").getFontProgram(), "Identity-H");
+            // fontProvider.addFont(PdfFontFactory.createFont("/pdf/font/simhei.ttf", PdfEncodings.IDENTITY_H).getFontProgram(), PdfEncodings.IDENTITY_H);
             converterProperties.setFontProvider(fontProvider);
 
 
@@ -275,4 +276,5 @@ public class ToPDFUtil {
             log.info("init freemarker configuration Exception, e:", e);
         }
     }
+
 }

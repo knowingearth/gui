@@ -30,7 +30,7 @@ public class BarCodeUtil {
     private static final Integer BACKGROUND_COLOR = 0xFFFFFF;      // 基础属性：二维码背景色，0xFFFFFF 表示白色
 
     public static void main(String[] args) throws WriterException, IOException {
-        String s = generateBarCodeBase64("PUR24092918195100193");
+        String s = generateBarCodeBase64("DPK364337312131");
         System.out.println(s);
     }
 
