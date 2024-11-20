@@ -3,6 +3,7 @@ package com.y.gui.controller;
 import com.alibaba.fastjson.JSON;
 import com.y.gui.common.bases.Page;
 import com.y.gui.common.bases.ResultEntity;
+import com.y.gui.common.event.util.PushUtil;
 import com.y.gui.common.extension.RedisExt;
 import com.y.gui.dao.GuiAreaMapper;
 import com.y.gui.dto.UserDTO;
@@ -59,5 +60,10 @@ public class TestController {
         log.info("nxKey1:{}", redisExt.getExpire(key));
         Boolean b = redisExt.setNx(key, "abc", 300L);
         log.info("nxKey1:{}", redisExt.getExpire(key));
+    }
+
+    @GetMapping("publish")
+    public void publish() {
+        PushUtil.testPushEvent();
     }
 }
