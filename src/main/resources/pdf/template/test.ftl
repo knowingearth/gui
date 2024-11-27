@@ -22,6 +22,12 @@
             .bg-color {
                 background-color: #ffdddd;
             }
+
+            .page {
+                width: 200pt;
+                padding-top: 2.8pt;
+                page-break-before: always;
+            }
             
             table {
                 border-collapse: collapse;
