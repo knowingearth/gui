@@ -82,6 +82,14 @@ spring:
         login-username: admin
         login-password: admin
 
+  #elasticsearch:
+    # ES节点地址和端口
+  #  uris: "http://192.168.229.10:9200,http://192.168.229.11:9200,http://192.168.229.12:9200"
+    # 如果需要，设置用户名
+  #  username: elastic
+    # 如果需要，设置密码
+  #  password: Cnrmall#123
+
 #easy-es:
 #  enable: true
 #  address : 192.168.229.10:9200,192.168.229.11:9200,192.168.229.12:9200

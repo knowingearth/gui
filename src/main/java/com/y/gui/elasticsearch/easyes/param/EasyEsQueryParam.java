@@ -1,4 +1,4 @@
-package com.y.gui.elasticsearch.param;
+package com.y.gui.elasticsearch.easyes.param;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.y.gui.param.PageParentParam;
@@ -8,7 +8,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class EsQueryParam extends PageParentParam {
+public class EasyEsQueryParam extends PageParentParam {
     @Schema(
             title = "saleOrderId",
             description = "订单号",

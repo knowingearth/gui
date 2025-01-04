@@ -1,9 +1,9 @@
-package com.y.gui.elasticsearch.dto;
+package com.y.gui.elasticsearch.easyes.dto;
 
 import lombok.Data;
 
 @Data
-public class ESOrderItemDTO {
+public class EasyESOrderItemDTO {
     /**
      * 商品编号
      */

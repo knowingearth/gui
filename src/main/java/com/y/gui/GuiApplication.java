@@ -8,7 +8,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 // @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class, RedissonAutoConfiguration.class})
 @EnableAsync
 @MapperScan("com.y.gui.dao")
-// @EsMapperScan("com.y.gui.elasticsearch.mapper")
+// @EsMapperScan("com.y.gui.elasticsearch.easyes.mapper")
 @SpringBootApplication
 public class GuiApplication {
 

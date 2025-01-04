@@ -1,0 +1,207 @@
+PUT /task_box
+{
+    "settings": {
+      "refresh_interval": "1s",
+      "max_result_window": 20000000,
+      "number_of_replicas": 1,
+      "number_of_shards": 1,
+      "analysis": {
+        "analyzer": {
+          "ik_max_word": {
+            "type": "custom",
+            "tokenizer": "ik_max_word"
+          }
+        }
+      }
+    },
+    "mappings": {
+        "properties": {
+          "sysTag": {
+            "type": "keyword",
+            "index": true,
+            "store": true
+          },
+          "processId": {
+            "type": "keyword",
+            "index": true,
+            "store": true
+          },
+          "taskId": {
+            "type": "keyword",
+            "index": true,
+            "store": true
+          },
+          "taskKey": {
+            "type": "keyword",
+            "index": true,
+            "store": true
+          },
+          "taskName": {
+            "type": "keyword"
+          },
+          "taskChname": {
+            "type": "keyword"
+          },
+          "assignee": {
+            "type": "keyword",
+            "index": true
+          },
+          "taskCreateTime": {
+            "type": "date",
+            "index": true,
+            "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
+          },
+          "taskAssignTime": {
+            "type": "date",
+            "index": true,
+            "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
+          },
+          "taskCompleteTime": {
+            "type": "date",
+            "index": true,
+            "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
+          },
+          "insertId": {
+            "type": "keyword"
+          },
+          "lastModifyId": {
+            "type": "keyword"
+          },
+          "taskStatus": {
+            "type": "keyword",
+            "index": true
+          },
+          "taskAbstract": {
+            "type": "text"
+          },
+          "tAbstract": {
+            "type": "nested",
+            "properties": {
+              "orderId": {
+                "type": "keyword"
+              },
+              "offSaleOrderId": {
+                "type": "keyword"
+              },
+              "delOrderId": {
+                "type": "keyword"
+              },
+              "rtnOrderId": {
+                "type": "keyword"
+              },
+              "expressOrderId": {
+                "type": "keyword"
+              },
+              "purOrderId": {
+                "type": "keyword"
+              },
+              "preOrderId": {
+                "type": "keyword"
+              },
+              "prtvOrderId": {
+                "type": "keyword"
+              },
+              "rtvOrderId": {
+                "type": "keyword"
+              },
+              "promotionId": {
+                "type": "keyword"
+              },
+              "promotionName": {
+                "type": "text",
+                "analyzer": "ik_max_word"
+              },
+              "promotionType": {
+                "type": "keyword"
+              },
+              "promotionAll": {
+                "type": "boolean"
+              },
+              "promotionDeptId": {
+                "type": "keyword"
+              },
+              "promotionChannel": {
+                "type": "keyword"
+              },
+              "warehouseCode": {
+                "type": "keyword"
+              },
+              "warehouseName": {
+                "type": "text",
+                "analyzer": "ik_max_word"
+              },
+              "skuId": {
+                "type": "keyword"
+              },
+              "goodsNo": {
+                "type": "keyword"
+              },
+              "goodsName": {
+                "type": "text",
+                "analyzer": "ik_max_word"
+              },
+              "supplierId": {
+                "type": "keyword"
+              },
+              "supplierName": {
+                "type": "text",
+                "analyzer": "ik_max_word"
+              },
+              "mdId": {
+                "type": "keyword"
+              },
+              "mdName": {
+                "type": "text",
+                "analyzer": "ik_max_word"
+              },
+              "skus": {
+                "type": "nested",
+                "properties": {
+                  "skuId": {
+                    "type": "keyword",
+                    "index": true
+                  },
+                  "goodsNo": {
+                    "type": "keyword",
+                    "index": true
+                  },
+                  "goodsName": {
+                    "type": "keyword",
+                    "index": true
+                  },
+                  "supplierId": {
+                    "type": "keyword",
+                    "index": true
+                  },
+                  "supplierName": {
+                    "type": "text",
+                    "analyzer": "ik_max_word"
+                  },
+                  "goodsType": {
+                    "type": "keyword"
+                  },
+                  "categoryOne": {
+                    "type": "keyword"
+                  },
+                  "categoryTwo": {
+                    "type": "keyword"
+                  },
+                  "categoryThree": {
+                    "type": "keyword"
+                  },
+                  "categoryOneName": {
+                    "type": "keyword"
+                  },
+                  "categoryTwoName": {
+                    "type": "keyword"
+                  },
+                  "categoryThreeName": {
+                    "type": "keyword"
+                  }
+                }
+              }
+            }
+          }
+        }
+    }
+}

@@ -1,17 +1,17 @@
-package com.y.gui.elasticsearch.service.impl;
+package com.y.gui.elasticsearch.easyes.service.impl;
 
-import com.y.gui.elasticsearch.dto.ESOrderDTO;
-import com.y.gui.elasticsearch.mapper.ESOrderMapper;
-import com.y.gui.elasticsearch.param.EsQueryParam;
-import com.y.gui.elasticsearch.service.EsService;
+import com.y.gui.elasticsearch.easyes.dto.EasyESOrderDTO;
+import com.y.gui.elasticsearch.easyes.mapper.EasyESOrderMapper;
+import com.y.gui.elasticsearch.easyes.param.EasyEsQueryParam;
+import com.y.gui.elasticsearch.easyes.service.EasyEsService;
 import com.y.gui.vo.PageParentVo;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 // @Service
-public class EsServiceImpl implements EsService {
+public class EasyEsServiceImpl implements EasyEsService {
     // @Resource
-    private ESOrderMapper esOrderMapper;
+    private EasyESOrderMapper esOrderMapper;
 
 
     /**
@@ -20,7 +20,7 @@ public class EsServiceImpl implements EsService {
      * @return 查询的分页数据
      */
     @Override
-    public PageParentVo<ESOrderDTO> queryPageList(EsQueryParam param) {
+    public PageParentVo<EasyESOrderDTO> queryPageList(EasyEsQueryParam param) {
         /*// 创建查询请求
         SearchRequest searchRequest = new SearchRequest(ESOrderDTO.class.getAnnotation(IndexName.class).value());
         // 创建bool条件集

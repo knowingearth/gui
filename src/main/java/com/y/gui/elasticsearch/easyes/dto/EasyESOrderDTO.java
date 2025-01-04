@@ -1,4 +1,4 @@
-package com.y.gui.elasticsearch.dto;
+package com.y.gui.elasticsearch.easyes.dto;
 
 import lombok.Data;
 
@@ -6,7 +6,7 @@ import java.util.List;
 
 @Data
 //@IndexName(value = "scm_order", maxResultWindow = 100000)
-public class ESOrderDTO {
+public class EasyESOrderDTO {
     /**
      * SCM订单号
      * IdType.NONE: 由ES自动生成,是默认缺省时的配置
@@ -120,5 +120,5 @@ public class ESOrderDTO {
      * 单据中的商品信息
      */
 //    @IndexField(strategy = FieldStrategy.NOT_EMPTY, fieldType = FieldType.NESTED, nestedClass = ESOrderItemDTO.class)
-    private List<ESOrderItemDTO> orderItems;
+    private List<EasyESOrderItemDTO> orderItems;
 }

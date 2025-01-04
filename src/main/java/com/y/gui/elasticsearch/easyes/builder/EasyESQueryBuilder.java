@@ -1,6 +1,6 @@
-package com.y.gui.elasticsearch.builder;
+package com.y.gui.elasticsearch.easyes.builder;
 
-public class ESQueryBuilder {
+public class EasyESQueryBuilder {
     /*public static BoolQueryBuilder initPageQueryBuilder(EsQueryParam param) {
         BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
         if (StringUtils.hasText(param.getSaleOrderId())) {
