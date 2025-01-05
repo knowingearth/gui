@@ -1,5 +1,6 @@
 package com.y.gui.elasticsearch.es.service.impl;
 
+import com.y.gui.elasticsearch.es.dto.TaskBoxDTO;
 import com.y.gui.elasticsearch.es.param.TaskBoxPageParam;
 import com.y.gui.elasticsearch.es.service.EsService;
 import com.y.gui.elasticsearch.es.vo.TaskBoxPageVO;
@@ -11,8 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 public class EsServiceImpl implements EsService {
     private final String INDEX = "task_box";
 
-    // @Resource
-    // private RestHighLevelClient restHighLevelClient;
+//    @Resource
+//    private RestHighLevelClient restHighLevelClient;
 
     /**
      * 分页查询任务箱
@@ -64,6 +65,40 @@ public class EsServiceImpl implements EsService {
         } catch (IOException e) {
             log.info("TaskBoxServiceImpl.queryTaskBoxPage, IOException, e:", e);
             throw new RuntimeException("ES查询SCM单据信息失败");
+        }*/
+        return null;
+    }
+
+    /**
+     * 获取任务详情
+     * @param taskId 任务ID
+     * @return 任务详情
+     */
+    @Override
+    public TaskBoxDTO queryTaskBoxInfo(String taskId) {
+        /*try {
+            BoolQueryBuilder queryBuilder = new BoolQueryBuilder();
+            if (StringUtils.hasText(taskId)) {
+                queryBuilder.must(QueryBuilders.termQuery("taskId", taskId));
+            }
+
+
+            SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+            searchSourceBuilder.query(queryBuilder);
+
+            // 构建搜索请求
+            SearchRequest searchRequest = new SearchRequest(INDEX);
+            searchRequest.source(searchSourceBuilder);
+
+            // 搜索
+            SearchResponse searchResponse = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
+            long total = searchResponse.getHits().getTotalHits().value;
+            if (0 >= total) {
+                return null;
+            }
+            return JSON.parseObject(searchResponse.getHits().getAt(0).getSourceAsString(), TaskBoxDTO.class);
+        } catch (IOException e) {
+            return null;
         }*/
         return null;
     }

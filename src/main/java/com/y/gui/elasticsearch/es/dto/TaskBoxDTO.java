@@ -1,6 +1,7 @@
 package com.y.gui.elasticsearch.es.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.y.gui.elasticsearch.es.utils.ESID;
 import lombok.Data;
 
 @Data
@@ -18,6 +19,7 @@ public class TaskBoxDTO {
     /**
      * 任务ID
      */
+    @ESID
     private String taskId;
 
     /**

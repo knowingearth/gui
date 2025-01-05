@@ -8,8 +8,7 @@ import com.y.gui.view.GuiAreaView;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,7 +40,7 @@ public class AreaController {
 
 
     @JsonView(GuiAreaView.Basic.class)
-    @RequestMapping("getArea/{areaId}")
+    @RequestMapping(value = "getArea/{areaId}", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResultEntity<AreaDTO> getArea(@PathVariable("areaId") Long areaId) {
 
         return ResultEntity.getSuccessInstance(areaService.getAreaById(areaId));
