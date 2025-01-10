@@ -31,10 +31,7 @@ public class EasyEsServiceImpl implements EasyEsService {
 
         try {
             source.size(ESOrderDTO.class.getAnnotation(IndexName.class).maxResultWindow());
-            SearchResponse countResponse = esOrderMapper.search(searchRequest, RequestOptions.DEFAULT);
-            Long total = Arrays.stream(countResponse.getHits().getHits()).count();
 
-            List<ESOrderDTO> datas = new ArrayList<>();
             int pageNum = (param.getPageNum() - 1) * param.getPageSize();
             SortOrder sortOrder = SortOrder.DESC;
             if (SortOrder.ASC.toString().equals(param.getSortType())) {
@@ -42,6 +39,9 @@ public class EasyEsServiceImpl implements EasyEsService {
             }
             source.from(pageNum).size(param.getPageSize()).sort(new FieldSortBuilder("createTime").order(sortOrder));
             SearchResponse response = esOrderMapper.search(searchRequest, RequestOptions.DEFAULT);
+            long total = response.getHits().getTotalHits().value;
+
+            List<ESOrderDTO> datas = new ArrayList<>();
             for (SearchHit hit : response.getHits().getHits()) {
                 String data = hit.getSourceAsString();
                 ESOrderDTO ESOrderDTO = JSON.parseObject(data, ESOrderDTO.class);
