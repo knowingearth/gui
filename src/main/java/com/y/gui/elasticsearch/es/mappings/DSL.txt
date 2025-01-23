@@ -1,0 +1,31 @@
+GET /scm_order/_search
+{
+  "query": {
+    "match": {
+      "id": "DEL24122510360581499"
+    }
+  }
+}
+
+
+POST /scm_order/_update_by_query
+{
+  "query": {
+    "match": {
+      "id": "DEL24121616334521354"
+    }
+  },
+  "script": {
+    "source": "ctx._source.statusStr = '已拒收'"
+  }
+}
+
+
+get /goods/_search
+{
+  "query": {
+    "match": {
+      "goodsNo": "140056"
+    }
+  }
+}

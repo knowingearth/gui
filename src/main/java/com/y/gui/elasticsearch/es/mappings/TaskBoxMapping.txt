@@ -1,3 +1,4 @@
+DELETE /task_box
 PUT /task_box
 {
     "settings": {

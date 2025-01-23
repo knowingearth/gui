@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -65,5 +66,13 @@ public class TestController {
     @GetMapping("publish")
     public void publish() {
         PushUtil.testPushEvent();
+    }
+
+    @GetMapping("{v}")
+    public void testMapCache(@PathVariable String v) {
+        redisExt.hincr("act_001", "price", 1);
+        redisExt.hincr("act_001", "user", 1);
+        long setAddResult = redisExt.sSet("act_set_001", v);
+        log.info("setAddResult:{}", setAddResult);
     }
 }
