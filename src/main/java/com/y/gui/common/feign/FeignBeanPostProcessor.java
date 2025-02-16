@@ -23,6 +23,10 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
 //@Component
 public class FeignBeanPostProcessor implements BeanPostProcessor {
 
+    /* 使用示例
+    @FeignConsumer("ZTSCM-service")
+    private TaskBoxClient scmTaskBoxClient;*/
+
     /*@Override
     @SneakyThrows
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
