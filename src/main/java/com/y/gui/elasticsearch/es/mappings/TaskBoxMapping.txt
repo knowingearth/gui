@@ -1,6 +1,6 @@
 # text类型用match；可以分词；可以模糊搜索；
 # keyword类型用term；不分词；不支持模糊搜索；精确匹配；可以用于过滤、排序、聚合；
-# long\integer会被分词，支持模糊查询，不支持聚合和排序；
+# long\integer会被分词，支持模糊查询，不支持聚合和排序；使用term精确匹配效率高，使用match模糊查询效率低；
 DELETE /task_box
 PUT /task_box
 {

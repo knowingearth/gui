@@ -1,0 +1,69 @@
+PUT _template/pin_auto_subscription
+{
+ "index_patterns": [
+  "pin_auto_subscription_*"
+ ],
+ "settings": {
+  "number_of_shards": "4",
+  "number_of_replicas": "1",
+  "analysis": {
+   "normalizer": {
+    "lowercase": {
+     "filter": [
+      "lowercase"
+     ],
+     "type": "custom"
+    }
+   }
+  }
+ },
+ "mappings": {
+  "doc": {
+   "dynamic": "false",
+   "properties": {
+    "pin": {
+     "normalizer": "lowercase",
+     "type": "keyword"
+    },
+    "complete_time": {
+     "format": "yyyy-MM-dd HH:mm:ss||epoch_millis",
+     "type": "date"
+    }
+   }
+  }
+ }
+}
+
+
+PUT push_data_flag
+{
+ "settings": {
+  "number_of_shards": "4",
+  "number_of_replicas": "1"
+ },
+ "mappings": {
+  "doc": {
+   "dynamic": "false",
+   "properties": {
+    "data_type": {
+     "type": "keyword"
+    },
+    "create_time": {
+     "format": "yyyy-MM-dd HH:mm:ss||epoch_millis",
+     "type": "date"
+    }
+   }
+  }
+ }
+}
+
+
+// 新增字段
+PUT storage_manage/doc/_mapping
+{
+  "properties": {
+    "parentMemberId": {
+      "type": "keyword"
+    }
+  }
+}
