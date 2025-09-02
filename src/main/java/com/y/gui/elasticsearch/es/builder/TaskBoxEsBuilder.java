@@ -192,4 +192,10 @@ public class TaskBoxEsBuilder {
 
         return queryBuilder;
     }*/
+
+    // 拼接脚本计算逻辑
+    /*if(storageSendCardRecordJobParam.isCheckAmount()){
+        Map<String, Object> params = new HashMap<>();
+        bqb.must(QueryBuilders.scriptQuery(new Script(ScriptType.INLINE, "painless", "doc['amount'].value - doc['giftAmount'].value - doc['refundAmount'].value > 0", params)));
+    }*/
 }
