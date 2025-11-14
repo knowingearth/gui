@@ -20,6 +20,24 @@ POST /scm_order/_update_by_query
   }
 }
 
+POST /ecard_index_202401/_update_by_query
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "match": {
+            "cardId": "JDFV1086510000014000002"
+          }
+        }
+      ]
+    }
+  },
+  "script": {
+    "source": "ctx._source.timeEnd = '2025-10-21 23:59:59'"
+  }
+}
+
 
 get /goods/_search
 {
@@ -27,5 +45,141 @@ get /goods/_search
     "match": {
       "goodsNo": "140056"
     }
+  }
+}
+
+# 多字段 and 匹配，或者匹配使用 should
+post /ecard_index_202401/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "cardBrandType": "7"
+          }
+        },
+        {
+          "match": {
+            "cardId": "JDFV6015810000003000002"
+          }
+        }
+      ]
+    }
+  }
+}
+
+
+GET /my_index/my_type/_search
+{
+  "query": {
+    "bool": {
+      "must":     { "match": { "title": "quick" }},
+      "must_not": { "match": { "title": "lazy"  }},
+      "should": [
+                  { "match": { "title": "brown" }},
+                  { "match": { "title": "dog"   }}
+      ]
+    }
+  }
+}
+
+
+# 复杂语句
+{
+  "bool": {
+    "must": [
+      {
+        "term": {
+          "stateExt": {
+            "value": 0,
+            "boost": 1
+          }
+        }
+      },
+      {
+        "terms": {
+          "cardBrandType": [
+            "7"
+          ],
+          "boost": 1
+        }
+      },
+      {
+        "bool": {
+          "should": [
+            {
+              "bool": {
+                "must": [
+                  {
+                    "range": {
+                      "timeEnd": {
+                        "from": "2025-10-23",
+                        "to": null,
+                        "include_lower": true,
+                        "include_upper": true,
+                        "format": "yyyy-MM-dd",
+                        "boost": 1
+                      }
+                    }
+                  },
+                  {
+                    "range": {
+                      "timeEnd": {
+                        "from": null,
+                        "to": "2025-10-24",
+                        "include_lower": true,
+                        "include_upper": false,
+                        "format": "yyyy-MM-dd",
+                        "boost": 1
+                      }
+                    }
+                  }
+                ],
+                "adjust_pure_negative": true,
+                "boost": 1
+              }
+            },
+            {
+              "bool": {
+                "must": [
+                  {
+                    "range": {
+                      "timeEnd": {
+                        "from": "2025-11-15",
+                        "to": null,
+                        "include_lower": true,
+                        "include_upper": true,
+                        "format": "yyyy-MM-dd",
+                        "boost": 1
+                      }
+                    }
+                  },
+                  {
+                    "range": {
+                      "timeEnd": {
+                        "from": null,
+                        "to": "2025-11-16",
+                        "include_lower": true,
+                        "include_upper": false,
+                        "format": "yyyy-MM-dd",
+                        "boost": 1
+                      }
+                    }
+                  }
+                ],
+                "adjust_pure_negative": true,
+                "boost": 1
+              }
+            }
+          ],
+          "adjust_pure_negative": true,
+          "minimum_should_match": "1",
+          "boost": 1
+        }
+      }
+    ],
+    "adjust_pure_negative": true,
+    "boost": 1
   }
 }

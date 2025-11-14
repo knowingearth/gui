@@ -67,3 +67,13 @@ PUT storage_manage/doc/_mapping
     }
   }
 }
+
+// 新增字段
+PUT user_promotion/_mapping/user_promotion
+{
+  "properties": {
+    "pinRiskRangePoolId": {
+      "type": "keyword"
+    }
+  }
+}
