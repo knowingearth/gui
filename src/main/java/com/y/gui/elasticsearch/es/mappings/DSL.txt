@@ -20,6 +20,9 @@ POST /scm_order/_update_by_query
   }
 }
 
+/*
+ * 根据查询条件更新字段值
+ */
 POST /ecard_index_202401/_update_by_query
 {
   "query": {
@@ -49,11 +52,25 @@ get /goods/_search
 }
 
 # 多字段 and 匹配，或者匹配使用 should
+/*
+ * wildcard 模糊匹配
+ * exists 字段存在
+ */
 post /ecard_index_202401/_search
 {
   "query": {
     "bool": {
       "must": [
+        {
+          "wildcard": {
+            "giftcardId": "FLE*"
+          }
+        },
+        {
+          "exists": {
+            "field": "fatherOrderId"
+          }
+        },
         {
           "match": {
             "cardBrandType": "7"
@@ -69,7 +86,11 @@ post /ecard_index_202401/_search
   }
 }
 
-
+/*
+ * must 匹配所有满足条件的文档
+ * must_not 匹配所有不满足条件的文档
+ * should 至少满足一个条件的文档
+ */
 GET /my_index/my_type/_search
 {
   "query": {
@@ -83,6 +104,31 @@ GET /my_index/my_type/_search
     }
   }
 }
+
+# 统计某个字段值的个数
+/*
+ * size: 0 表示不返回任何匹配的文档，因为我们只关心聚合结果
+ * aggs 部分定义了聚合操作
+ * unique_user_count 是这个聚合的名称，你可以根据需要自定义这个名称
+ * cardinality 是聚合的类型，用于计算字段的唯一值数量
+ * field 指定了要计算唯一值的字段，这里是 user_id
+ * cardinality 聚合是基于 HyperLogLog++ 算法实现的，它可以非常高效地估计大量的唯一值数量，但在某些情况下（例如当你知道唯一值的数量非常少时），精确计数可能更合适。对于精确计数，可以使用 value_count 聚合
+ * HyperLogLog++ 算法在处理非常多的唯一值时非常有效，但在处理极少数唯一值时可能不够精确。Elasticsearch 提供了一个 precision_threshold 参数来调整精度和内存使用之间的平衡
+ * 当估计的唯一值数量低于5000时，Elasticsearch将切换到精确计数算法
+ */
+GET /my_index/_search
+{
+  "size": 0,
+  "aggs": {
+    "unique_user_count": {
+      "cardinality": {
+        "field": "user_id",
+        "precision_threshold": 5000
+      }
+    }
+  }
+}
+
 
 
 # 复杂语句
