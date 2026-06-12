@@ -105,6 +105,29 @@ GET /my_index/my_type/_search
   }
 }
 
+/*
+ * 条件过滤后，按创建时间倒序
+ */
+POST /my_index/_search
+{
+  "query": {
+    "bool": {
+      "must": {
+        "match": {
+          "pin": "ygl001"
+        }
+      }
+    }
+  },
+  "sort": [
+    {
+      "createTime": {
+        "order": "desc"
+      }
+    }
+  ]
+}
+
 # 统计某个字段值的个数
 /*
  * size: 0 表示不返回任何匹配的文档，因为我们只关心聚合结果
